@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "529983306221",
+    "project_id": "sweet-1c314",
+    "storage_bucket": "sweet-1c314.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:529983306221:android:c17a57980c94ccd2f2cfe4",
+        "android_client_info": {
+          "package_name": "com.example.switiban"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "529983306221-uk2v2qnnql4jnbqvejna8i30e6ffp6gt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.switiban",
+            "certificate_hash": "74b5ce17141606a89cd2aab545031cbbff8bbfa2"
+          }
+        },
+        {
+          "client_id": "529983306221-p7a2gicpbfj99eltrfg1l2kkpa73fdq2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpr5OYWDGN1WgpccoYXeEhslSQpKSQpE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "529983306221-p7a2gicpbfj99eltrfg1l2kkpa73fdq2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
