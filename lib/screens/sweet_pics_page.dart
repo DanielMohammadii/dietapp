@@ -2,9 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:switiban/models/photo_models.dart';
-import 'package:switiban/widgets/widgets.dart';
-import 'package:switiban/shared_prefences/date_picked.dart';
 
 class SugarPhotoPage extends StatefulWidget {
   const SugarPhotoPage({
@@ -16,21 +13,36 @@ class SugarPhotoPage extends StatefulWidget {
 }
 
 class _SugarPhotoPageState extends State<SugarPhotoPage> {
-  void getData() async {
-    final ref = FirebaseFirestore.instance.collection('photos').doc()
-      ..withConverter(
-        fromFirestore: PhotoModel.fromFirestore,
-        toFirestore: ((PhotoModel photoModel, options) =>
-            photoModel.toFirestore()),
-      );
+  final collection = FirebaseFirestore.instance.collection('photos');
+  late List<Map<String, dynamic>> listOFimages;
 
-    final docSnap = await ref.get();
-    final photos = docSnap.data();
-    if (photos != null) {
-      print(photos);
-    } else {
-      print("No such document.");
+  void getData() async {
+    late List<Map<String, dynamic>> templistOFimages = [];
+    late List<int> listOFDate = [];
+    late List<List<String>> listOfSameDateImage = [];
+    var data = await collection.get();
+    data.docs.forEach((element) {
+      templistOFimages.add(element.data());
+    });
+
+    templistOFimages.forEach(
+      (p) {
+        listOFDate.add(p['dateCreated']);
+      },
+    );
+    for (var d in listOFDate) {
+      for (var p in templistOFimages) {
+        if (p['dateCreated'] == d) {
+          listOfSameDateImage.add(p['imgUrl']);
+        }
+      }
     }
+    print(templistOFimages);
+    print(listOFDate);
+    print(listOfSameDateImage);
+    setState(() {
+      listOFimages = templistOFimages;
+    });
   }
 
   @override

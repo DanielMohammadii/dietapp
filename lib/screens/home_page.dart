@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
  
 
 import 'package:switiban/screens/views.dart';
-import 'package:switiban/widgets/widgets.dart';
 
 
 class HomePage extends StatefulWidget {

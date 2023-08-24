@@ -8,7 +8,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:switiban/shared_prefences/date_picked.dart';
 
 class Cam extends StatefulWidget {
   const Cam({super.key});
