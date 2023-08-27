@@ -1,8 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:switiban/models/photo_models.dart';
 
 class SweetList extends StatefulWidget {
+  final List<PhotoModel> images;
   const SweetList({
     super.key,
+    required this.images,
   });
 
   @override
@@ -21,21 +25,28 @@ class _SweetListState extends State<SweetList> {
     return Container(
       color: Colors.black,
       child: ListView.builder(
-        itemCount: 3,
+        itemCount: widget.images.length,
         itemBuilder: ((context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            clipBehavior: Clip.hardEdge,
+            margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
             child: GestureDetector(
               onTap: () {
                 dialog(context);
               },
-              child: Container(
+              child: CachedNetworkImage(
                 height: 400,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                  image: const DecorationImage(
-                      image: NetworkImage(''), fit: BoxFit.fill),
+                imageUrl: widget.images[index].imgUrl,
+                fit: BoxFit.cover,
+                errorWidget: (context, url, error) => Container(
+                  color: Colors.white12,
+                  child: const Icon(
+                    Icons.error,
+                    color: Colors.red,
+                  ),
                 ),
               ),
             ),

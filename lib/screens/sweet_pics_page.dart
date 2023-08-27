@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easylogger/flutter_logger.dart';
+import 'package:switiban/models/photo_models.dart';
+import 'package:switiban/widgets/photos_list.dart';
 
 class SugarPhotoPage extends StatefulWidget {
   const SugarPhotoPage({
@@ -15,30 +16,12 @@ class _SugarPhotoPageState extends State<SugarPhotoPage> {
   final collection = FirebaseFirestore.instance.collection('photos');
   late List<Map<String, dynamic>> listOFimages;
 
-  void getData() async {
-    late List<Map<String, dynamic>> templistOFimages = [];
-    late List<int> listOFDate = [];
-    late List<List<String>> listOfSameDateImage = [];
-    var data = await collection.get();
-    for (var element in data.docs) {
-      templistOFimages.add(element.data());
-    }
+  List<PhotoModel> models = [];
 
-    for (var p in templistOFimages) {
-      listOFDate.add(p['dateCreated']);
-    }
-    for (var d in listOFDate) {
-      for (var p in templistOFimages) {
-        if (p['dateCreated'] == d) {
-          listOfSameDateImage.add(p['imgUrl']);
-        }
-      }
-    }
-    Logger.i(templistOFimages);
-    Logger.i(listOFDate);
-    Logger.i(listOfSameDateImage);
+  void getData() async {
+    final data = await collection.get();
     setState(() {
-      listOFimages = templistOFimages;
+      models = data.docs.map((e) => PhotoModel.fromFirestore(e)).toList();
     });
   }
 
@@ -51,19 +34,8 @@ class _SugarPhotoPageState extends State<SugarPhotoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          // SweetList(),
-          Container(
-            height: 70,
-            width: MediaQuery.of(context).size.width,
-            color: Colors.transparent,
-            child: const Text(
-              'sdf',
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            ),
-          ),
-        ],
+      body: SweetList(
+        images: models,
       ),
     );
   }
