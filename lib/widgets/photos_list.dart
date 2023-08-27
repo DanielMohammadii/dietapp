@@ -1,7 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class SweetList extends StatefulWidget {
   const SweetList({
@@ -21,7 +18,6 @@ class _SweetListState extends State<SweetList> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     return Container(
       color: Colors.black,
       child: ListView.builder(
@@ -38,7 +34,7 @@ class _SweetListState extends State<SweetList> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.white,
-                  image: DecorationImage(
+                  image: const DecorationImage(
                       image: NetworkImage(''), fit: BoxFit.fill),
                 ),
               ),
@@ -60,7 +56,7 @@ class _SweetListState extends State<SweetList> {
         ),
         context: context,
         builder: (BuildContext context) {
-          return Column(
+          return const Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Row(
@@ -103,7 +99,7 @@ class _SweetListState extends State<SweetList> {
 
 class Emoji extends StatefulWidget {
   final String urlPath;
-  Emoji({required this.urlPath, super.key});
+  const Emoji({required this.urlPath, super.key});
 
   @override
   State<Emoji> createState() => _EmojiState();

@@ -12,8 +12,8 @@ class PhotoModel {
 
   Map<String, dynamic> toFirestore() {
     return <String, dynamic>{
-      if (imgUrl != null) 'imgUrl': imgUrl,
-      if (imgUrl != null) 'dateCreated': dateCreated.millisecondsSinceEpoch,
+      'imgUrl': imgUrl,
+      'dateCreated': dateCreated.millisecondsSinceEpoch,
     };
   }
 
