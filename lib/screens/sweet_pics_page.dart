@@ -1,7 +1,6 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_easylogger/flutter_logger.dart';
 
 class SugarPhotoPage extends StatefulWidget {
   const SugarPhotoPage({
@@ -21,15 +20,13 @@ class _SugarPhotoPageState extends State<SugarPhotoPage> {
     late List<int> listOFDate = [];
     late List<List<String>> listOfSameDateImage = [];
     var data = await collection.get();
-    data.docs.forEach((element) {
+    for (var element in data.docs) {
       templistOFimages.add(element.data());
-    });
+    }
 
-    templistOFimages.forEach(
-      (p) {
-        listOFDate.add(p['dateCreated']);
-      },
-    );
+    for (var p in templistOFimages) {
+      listOFDate.add(p['dateCreated']);
+    }
     for (var d in listOFDate) {
       for (var p in templistOFimages) {
         if (p['dateCreated'] == d) {
@@ -37,9 +34,9 @@ class _SugarPhotoPageState extends State<SugarPhotoPage> {
         }
       }
     }
-    print(templistOFimages);
-    print(listOFDate);
-    print(listOfSameDateImage);
+    Logger.i(templistOFimages);
+    Logger.i(listOFDate);
+    Logger.i(listOfSameDateImage);
     setState(() {
       listOFimages = templistOFimages;
     });
@@ -53,7 +50,6 @@ class _SugarPhotoPageState extends State<SugarPhotoPage> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
         children: [
@@ -62,7 +58,7 @@ class _SugarPhotoPageState extends State<SugarPhotoPage> {
             height: 70,
             width: MediaQuery.of(context).size.width,
             color: Colors.transparent,
-            child: Text(
+            child: const Text(
               'sdf',
               style: TextStyle(color: Colors.white, fontSize: 25),
             ),
