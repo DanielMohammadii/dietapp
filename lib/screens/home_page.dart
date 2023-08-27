@@ -15,10 +15,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  static List<Widget> _myPage = [
-    CalPage(),
-    Cam(),
-    SugarPhotoPage(),
+  static final List<Widget> _myPage = [
+    const CalPage(),
+    const Cam(),
+    const SugarPhotoPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white30,
         onTap: _onItemTapped,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             label: 'Callories',
             icon: Icon(

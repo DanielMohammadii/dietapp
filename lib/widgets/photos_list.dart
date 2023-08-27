@@ -1,11 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:switiban/models/photo_models.dart';
 
 class SweetList extends StatefulWidget {
+  final List<PhotoModel> images;
   const SweetList({
     super.key,
+    required this.images,
   });
 
   @override
@@ -21,25 +22,31 @@ class _SweetListState extends State<SweetList> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     return Container(
       color: Colors.black,
       child: ListView.builder(
-        itemCount: 3,
+        itemCount: widget.images.length,
         itemBuilder: ((context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            clipBehavior: Clip.hardEdge,
+            margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
             child: GestureDetector(
               onTap: () {
                 dialog(context);
               },
-              child: Container(
+              child: CachedNetworkImage(
                 height: 400,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                  image: DecorationImage(
-                      image: NetworkImage(''), fit: BoxFit.fill),
+                imageUrl: widget.images[index].imgUrl,
+                fit: BoxFit.cover,
+                errorWidget: (context, url, error) => Container(
+                  color: Colors.white12,
+                  child: const Icon(
+                    Icons.error,
+                    color: Colors.red,
+                  ),
                 ),
               ),
             ),
@@ -60,7 +67,7 @@ class _SweetListState extends State<SweetList> {
         ),
         context: context,
         builder: (BuildContext context) {
-          return Column(
+          return const Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Row(
@@ -103,7 +110,7 @@ class _SweetListState extends State<SweetList> {
 
 class Emoji extends StatefulWidget {
   final String urlPath;
-  Emoji({required this.urlPath, super.key});
+  const Emoji({required this.urlPath, super.key});
 
   @override
   State<Emoji> createState() => _EmojiState();

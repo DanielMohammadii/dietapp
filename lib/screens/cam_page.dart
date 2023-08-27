@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'dart:io';
 import 'package:switiban/models/photo_models.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:path/path.dart'; 
+import 'package:path/path.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class Cam extends StatefulWidget {
@@ -63,7 +61,7 @@ class _CamState extends State<Cam> {
         onPressed: () {
           cam(context);
         },
-        icon: Icon(
+        icon: const Icon(
           Icons.camera,
           size: 40,
           color: Colors.red,

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class SugarPhotoPage extends StatefulWidget {
   const SugarPhotoPage({
@@ -14,32 +15,12 @@ class _SugarPhotoPageState extends State<SugarPhotoPage> {
   final collection = FirebaseFirestore.instance.collection('photos');
   late List<Map<String, dynamic>> listOFimages;
 
-  void getData() async {
-    late List<Map<String, dynamic>> templistOFimages = [];
-    late List<int> listOFDate = [];
-    late List<List<String>> listOfSameDateImage = [];
-    var data = await collection.get();
-    data.docs.forEach((element) {
-      templistOFimages.add(element.data());
-    });
+  List<PhotoModel> models = [];
 
-    templistOFimages.forEach(
-      (p) {
-        listOFDate.add(p['dateCreated']);
-      },
-    );
-    for (var d in listOFDate) {
-      for (var p in templistOFimages) {
-        if (p['dateCreated'] == d) {
-          listOfSameDateImage.add(p['imgUrl']);
-        }
-      }
-    }
-    print(templistOFimages);
-    print(listOFDate);
-    print(listOfSameDateImage);
+  void getData() async {
+    final data = await collection.get();
     setState(() {
-      listOFimages = templistOFimages;
+      models = data.docs.map((e) => PhotoModel.fromFirestore(e)).toList();
     });
   }
 
@@ -51,21 +32,9 @@ class _SugarPhotoPageState extends State<SugarPhotoPage> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Stack(
-        children: [
-          // SweetList(),
-          Container(
-            height: 70,
-            width: MediaQuery.of(context).size.width,
-            color: Colors.transparent,
-            child: Text(
-              'sdf',
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            ),
-          ),
-        ],
+      body: SweetList(
+        images: models,
       ),
     );
   }
